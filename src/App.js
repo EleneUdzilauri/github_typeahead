@@ -8,6 +8,7 @@ import { ArrowRightOutlined, UserOutlined } from '@ant-design/icons';
 function App() {
   const [input, setInput] = useState('');
   const [users, setUsers] = useState([]);
+  /*eslint no-unused-vars: */
   const [_, setSetterTimeout] = useState();
   const [error, setError] = useState();
   const columns = useMemo(() => [
