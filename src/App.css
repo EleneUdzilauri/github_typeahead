@@ -1,9 +1,36 @@
 .container {
-    max-width: 800px;
+    max-width: 500px;
     padding: 0 20px;
     margin: 20px auto;
 }
 
 .input {
     margin-bottom: 20px;
+    display: block;
+    width: calc(100% - 15px);
+    height: 50px;
+    padding-left: 15px;
+    border: 1px solid rgb(80, 80, 80);
+    border-radius: 5px;
+    background-color: transparent;
+    color: white;
+    font-size: 16px;
+}
+
+.user-list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid rgb(80, 80, 80);
+    transition: all 0.3s;
+    color: lightgray;
+    text-decoration: none;
+}
+
+.user-list-item:hover {
+    background-color: rgb(80, 80, 80);
+}
+
+.user-list-item img {
+    margin-right: 15px;
 }

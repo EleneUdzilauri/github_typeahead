@@ -1,9 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './App.css';
-import 'antd/dist/antd.css';
-
-import { Input, Table, Button, Tooltip } from 'antd';
-import { ArrowRightOutlined, UserOutlined } from '@ant-design/icons';
 
 function App() {
   const [input, setInput] = useState('');
@@ -11,36 +7,6 @@ function App() {
   /*eslint no-unused-vars: */
   const [_, setSetterTimeout] = useState();
   const [error, setError] = useState();
-  const columns = useMemo(() => [
-    {
-      title: '',
-      dataIndex: 'avatar_url',
-      key: 'avatar_url',
-      render: (src, suggestion) => <img width={50} src={src} alt={suggestion.login} style={{ borderRadius: '100px' }} />
-    },
-    {
-      title: 'Username',
-      dataIndex: 'login',
-      key: 'login',
-    },
-    {
-      title: 'Open Profile',
-      dataIndex: 'login',
-      key: 'login',
-      render: (login, suggestion) => (
-        <Tooltip title="Open Profile">
-          <a
-            href={`https://github.com/${login}`}
-            target="_blank"
-            rel="noreferrer"
-            key={suggestion.id}
-          >
-            <Button type="primary" shape="circle" icon={<ArrowRightOutlined />} />
-          </a>
-        </Tooltip>
-      )
-    }
-  ], []);
 
   const onChangeHandler = useCallback((e) => {
     setSetterTimeout(st => {
@@ -71,19 +37,25 @@ function App() {
 
   return (
     <div className='container' style={{ minHeight: '100vh' }}>
-      <div className='input'>
-        <Input prefix={<UserOutlined />} placeholder="search user ..." onChange={onChangeHandler} size='large' />
+      <input className="input" placeholder="search user ..." onChange={onChangeHandler} />
+      <div className='content'>
+        {
+          error ? <p>{error}</p> : (
+            users && users.map((user) => (
+              <a
+                href={`https://github.com/${user.login}`}
+                target="_blank"
+                rel="noreferrer"
+                key={user.id}
+                className="user-list-item"
+              >
+                <img width={50} src={user.avatar_url} alt={user.login} style={{ borderRadius: '100px' }} />
+                <h3>{user.login}</h3>
+              </a>
+            ))
+          )
+        }
       </div>
-      {
-        error ? <p>{error}</p> : (
-          <Table
-            dataSource={users}
-            columns={columns}
-            pagination={false}
-            rowKey="login"
-          />
-        )
-      }
     </div>
   );
 }
